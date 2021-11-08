@@ -1,0 +1,5 @@
+1. open anaconda prompt
+2. activate python env (e.g. activate py37rug)
+3. cd C:\CodeRug\immo\crawler\crawler
+4. scrapy crawl <spidername> -o <outputfilename>.json --logfile <logfilename>.log
+   (e.g. scrapy crawl pap -o pap.json --logfile pap.log)

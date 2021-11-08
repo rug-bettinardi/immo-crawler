@@ -6,7 +6,20 @@
 import scrapy
 
 
-class CrawlerItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class PapItem(scrapy.Item):
+
+    title = scrapy.Field()
+    prix = scrapy.Field()
+    annonceRefDate = scrapy.Field()
+    annonceUrlRef = scrapy.Field()
+    annoncePostDate = scrapy.Field()
+    location = scrapy.Field()
+    ville = scrapy.Field()
+    fullCodePostal = scrapy.Field()
+    nPieces = scrapy.Field()
+    surface = scrapy.Field()
+    bien = scrapy.Field()
+    description = scrapy.Field()
+    telephoneContact = scrapy.Field()
+    pictures = scrapy.Field()
+
