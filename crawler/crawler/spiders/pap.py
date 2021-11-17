@@ -56,15 +56,16 @@ one crawler for getting all the URLs of the annonces,
 one crawler to visit each of those URLs and extyract info
 """
 
+
 SEARCH_PARAMS = {
     "type": "location",
     "ville": "paris",
     "codePostal": "75",
-    "bien": "appartement",
-    "nPieces": None,
-    "minChambres": None,
-    "prix": None,
-    "surface": "jusqu-a-12-m2",
+    "bien": None,  # "appartement",       # if None, select all 'bien'
+    "nPieces": None,                      # if None, select all 'nPieces'
+    "minChambres": None,                  # if None, select all 'minChambres'
+    "prix": None,                         # if None, select all 'prix'
+    "surface": None,  # "jusqu-a-12-m2",  # if None, select all 'surface'
 }
 startUrl = generatePapUrl(searchParams=SEARCH_PARAMS)
 
