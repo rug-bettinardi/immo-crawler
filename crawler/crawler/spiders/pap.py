@@ -3,8 +3,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy import Request
 from ..items import PapItem
 from w3lib.url import url_query_cleaner
-import urllib
-
+from urllib.request import urlopen, Request
 
 def generatePapUrl(searchParams):
 
@@ -17,19 +16,30 @@ def generatePapUrl(searchParams):
     prix = searchParams["prix"]
     surface = searchParams["surface"]
 
-
     return f"https://www.pap.fr/annonce/{annonceType}-{bien}-{ville}-{codePostal}-g439-{nPieces}-{minChambres}-{prix}-{surface}"
 
 def getStartUrlsList(startUrl):
     """ define starting URLs to parse all annonces, even though those that appear only when 'scrolling down' """
 
+    # defining header
+    header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) '
+                            'AppleWebKit/537.11 (KHTML, like Gecko) '
+                            'Chrome/23.0.1271.64 Safari/537.11',
+              'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+              'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+              'Accept-Encoding': 'none',
+              'Accept-Language': 'en-US,en;q=0.8',
+              'Connection': 'keep-alive'}
+
+    # the URL where you are requesting at
+    redirectedStartUrl = urlopen(Request(url=f"{startUrl}-1", headers=header)).geturl()
+
+    # instantiate list where to append all URLs
     start_urls = [startUrl]
-    redirectedStartUrl = urllib.request.urlopen(f"{startUrl}-1").geturl()
 
     # stop when new redirected URL is == at the starting redirected URL:
     k = 2
-    while urllib.request.urlopen(f"{startUrl}-{k}").geturl() != redirectedStartUrl:
-        # start_urls.append(urllib.request.urlopen(f"{startUrl}-{k}").geturl())
+    while urlopen(Request(url=f"{startUrl}-{k}", headers=header)).geturl() != redirectedStartUrl:
         start_urls.append(f"{startUrl}-{k}")
         k += 1
 
