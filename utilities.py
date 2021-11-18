@@ -32,7 +32,8 @@ def mergeNewToOldScrapedData(newJson, oldJson, tgtJson=None, moveNewJsonTo=None)
     print(f"nb of observations in oldJson: {len(old)}\n"
           f"nb of observations in newJson: {len(new)}\n"
           f"nb of duplicated observations: {len(merged) - len(mergedClean)}\n"
-          f"nb of retained unique observations: {len(mergedClean)}\n")
+          f"nb of new observations: {len(new) - (len(merged) - len(mergedClean))}\n"
+          f"nb of unique observations in updated DataBase: {len(mergedClean)}\n")
 
     if tgtJson:
         saveJson(d=mergedClean, tgt=tgtJson)
