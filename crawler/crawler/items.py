@@ -8,6 +8,7 @@ import scrapy
 
 class PapItem(scrapy.Item):
 
+    url = scrapy.Field()
     title = scrapy.Field()
     prix = scrapy.Field()
     annonceRefDate = scrapy.Field()

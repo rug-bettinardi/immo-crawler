@@ -61,7 +61,7 @@ SEARCH_PARAMS = {
     "type": "location",
     "ville": "paris",
     "codePostal": "75",
-    "bien": None,  # "appartement",       # if None, select all 'bien'
+    "bien": "appartement",                # if None, select all 'bien'
     "nPieces": None,                      # if None, select all 'nPieces'
     "minChambres": None,                  # if None, select all 'minChambres'
     "prix": None,                         # if None, select all 'prix'
@@ -91,6 +91,7 @@ class PapCrawler(CrawlSpider):
 
         # store annonces info in item:
         item = PapItem()
+        item["url"] = response.url
         item["title"] = response.xpath("/html/body/div[2]/div/div[1]/h1/text()").get()
         item["prix"] = response.xpath("/html/body/div[2]/div/div[1]/h1/span/text()").get()
         item["annonceRefDate"] = response.xpath("/html/body/div[2]/div/div[1]/div[2]/div/p/text()").get()
