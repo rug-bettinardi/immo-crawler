@@ -20,16 +20,22 @@ def mergeNewToOldScrapedData(newJson, oldJson, tgtJson=None, moveNewJsonTo=None)
         moveNewJsonTo: optional, str. full path to directory where to move the newJson file (and its .log, if exists)
 
     Returns:
-        merged: list of dicts, oldJson + newJson
+        mergedJson: list of dicts, oldJson + newJson
 
     """
 
     new = loadJson(src=newJson)
     old = loadJson(src=oldJson)
-    merged = removeDuplicateDictsInList(lstDicts=old + new)
+    merged = old + new
+    mergedClean = removeDuplicateDictsInList(lstDicts=merged)
+
+    print(f"nb of observations in oldJson: {len(old)}\n"
+          f"nb of observations in newJson: {len(new)}\n"
+          f"nb of duplicated observations: {len(merged) - len(mergedClean)}\n"
+          f"nb of retained unique observations: {len(mergedClean)}\n")
 
     if tgtJson:
-        saveJson(d=merged, tgt=tgtJson)
+        saveJson(d=mergedClean, tgt=tgtJson)
 
     if moveNewJsonTo:
         os.replace(newJson, os.path.join(moveNewJsonTo, ntpath.basename(newJson)))
@@ -38,7 +44,7 @@ def mergeNewToOldScrapedData(newJson, oldJson, tgtJson=None, moveNewJsonTo=None)
         if os.path.isfile(newLog):
             os.replace(newLog, os.path.join(moveNewJsonTo, ntpath.basename(newLog)))
 
-    return merged
+    return mergedClean
 
 
 if __name__ == "main":
