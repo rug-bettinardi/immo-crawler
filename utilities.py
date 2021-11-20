@@ -29,11 +29,11 @@ def mergeNewToOldScrapedData(newJson, oldJson, tgtJson=None, moveNewJsonTo=None)
     merged = old + new
     mergedClean = removeDuplicateDictsInList(lstDicts=merged)
 
-    print(f"nb of observations in oldJson: {len(old)}\n"
-          f"nb of observations in newJson: {len(new)}\n"
-          f"nb of duplicated observations: {len(merged) - len(mergedClean)}\n"
-          f"nb of new observations: {len(new) - (len(merged) - len(mergedClean))}\n"
-          f"nb of unique observations in updated DataBase: {len(mergedClean)}\n")
+    print(f"nb of ads in oldJson: {len(old)}\n"
+          f"nb of ads in newJson: {len(new)}\n"
+          f"nb of duplicated ads: {len(merged) - len(mergedClean)}\n"
+          f"nb of new ads: {len(new) - (len(merged) - len(mergedClean))}\n"
+          f"nb of ads in updated DataBase: {len(mergedClean)}\n")
 
     if tgtJson:
         saveJson(d=mergedClean, tgt=tgtJson)

@@ -16,7 +16,12 @@ def generatePapUrl(searchParams):
     prix = searchParams["prix"]
     surface = searchParams["surface"]
 
-    return f"https://www.pap.fr/annonce/{annonceType}-{bien}-{ville}-{codePostal}-g439-{nPieces}-{minChambres}-{prix}-{surface}"
+    if ville == "paris" or codePostal == "75":
+        pageCode = "g439"
+    else:
+        pageCode = None
+
+    return f"https://www.pap.fr/annonce/{annonceType}-{bien}-{ville}-{codePostal}-{pageCode}-{nPieces}-{minChambres}-{prix}-{surface}"
 
 def getStartUrlsList(startUrl):
     """ define starting URLs to parse all annonces, even though those that appear only when 'scrolling down' """
@@ -59,8 +64,8 @@ one crawler to visit each of those URLs and extyract info
 
 SEARCH_PARAMS = {
     "type": "location",
-    "ville": "paris",
-    "codePostal": "75",
+    "ville": None,  # "paris",            # if None, select all 'ville'
+    "codePostal": None,  #"75",           # if None, select all 'codePostal'
     "bien": "appartement",                # if None, select all 'bien'
     "nPieces": None,                      # if None, select all 'nPieces'
     "minChambres": None,                  # if None, select all 'minChambres'
