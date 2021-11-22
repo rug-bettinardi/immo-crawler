@@ -18,6 +18,8 @@ def generatePapUrl(searchParams):
 
     if ville == "paris" or codePostal == "75":
         pageCode = "g439"
+    elif ville == "marseille" or codePostal == "13":
+        pageCode = "g12024"
     else:
         pageCode = None
 
@@ -66,7 +68,7 @@ SEARCH_PARAMS = {
     "type": "location",
     "ville": None,  # "paris",            # if None, select all 'ville'
     "codePostal": None,  #"75",           # if None, select all 'codePostal'
-    "bien": "appartement",                # if None, select all 'bien'
+    "bien": None,  # "appartement",                # if None, select all 'bien'
     "nPieces": None,                      # if None, select all 'nPieces'
     "minChambres": None,                  # if None, select all 'minChambres'
     "prix": None,                         # if None, select all 'prix'
